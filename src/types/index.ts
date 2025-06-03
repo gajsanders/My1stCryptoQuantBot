@@ -38,12 +38,13 @@ export interface SentimentAnalysis {
     score: number;
     rationale: string;
   };
+  newsHeadlines?: { title: string; url: string }[];
 }
 
 export interface TradingRecommendation {
   spotTrading: {
     action: 'buy' | 'sell' | 'hold';
-    entryPrice: number;
+    entryPrice?: number;
     stopLossLevel: number;
     takeProfitLevel: number;
     rationale: {
@@ -55,7 +56,7 @@ export interface TradingRecommendation {
   leveragedTrading: {
     position: 'long' | 'short';
     recommendedLeverage: number;
-    entryPrice: number;
+    entryPrice?: number;
     stopLossLevel: number;
     takeProfitLevel: number;
     rationale: {

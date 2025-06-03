@@ -25,7 +25,7 @@ export const TradingRecommendations: React.FC<TradingRecommendationsProps> = ({ 
           <div className="flex items-center justify-between">
             <span className="text-gray-600">Entry Price</span>
             <span className="font-medium">
-              {recommendations.spotTrading.entryPrice != null
+              {typeof recommendations.spotTrading.entryPrice === 'number' && isFinite(recommendations.spotTrading.entryPrice)
                 ? `$${recommendations.spotTrading.entryPrice.toFixed(2)}`
                 : 'N/A'}
             </span>
@@ -76,7 +76,7 @@ export const TradingRecommendations: React.FC<TradingRecommendationsProps> = ({ 
           <div className="flex items-center justify-between">
             <span className="text-gray-600">Entry Price</span>
             <span className="font-medium">
-              {recommendations.leveragedTrading.entryPrice != null
+              {typeof recommendations.leveragedTrading.entryPrice === 'number' && isFinite(recommendations.leveragedTrading.entryPrice)
                 ? `$${recommendations.leveragedTrading.entryPrice.toFixed(2)}`
                 : 'N/A'}
             </span>

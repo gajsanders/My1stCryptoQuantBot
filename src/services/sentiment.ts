@@ -46,14 +46,22 @@ export class SentimentService {
 
     try {
       const headlines = await this.newsService.getLatestNews();
-      const sentiment = await this.analyzeSentiment(headlines);
+      // Pass only the titles to the sentiment analysis model
+      const headlineTitles = headlines.map(h => h.title);
+      const sentiment = await this.analyzeSentiment(headlineTitles);
       
+      // Merge sentiment data with original headlines
+      const sentimentWithHeadlines: SentimentAnalysis = {
+        ...sentiment,
+        newsHeadlines: headlines,
+      };
+
       this.cache.set(cacheKey, {
-        data: sentiment,
+        data: sentimentWithHeadlines,
         timestamp: Date.now()
       });
       
-      return sentiment;
+      return sentimentWithHeadlines;
     } catch (error) {
       console.error('Error analyzing sentiment:', error);
       throw new Error('Failed to analyze sentiment');

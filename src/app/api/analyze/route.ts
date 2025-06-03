@@ -14,6 +14,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { symbol } = requestSchema.parse(body);
 
+    console.log('API received symbol:', symbol);
+
     // Initialize services
     const binanceService = BinanceService.getInstance();
     const sentimentService = SentimentService.getInstance();
@@ -40,6 +42,7 @@ export async function POST(request: NextRequest) {
     try {
       sentimentData = await sentimentService.getSentimentAnalysis(symbol);
       console.log('Successfully fetched sentiment data.');
+      console.log('Sentiment data received:', sentimentData);
     } catch (sentimentError) {
       console.error(`Error fetching sentiment data for ${symbol}:`, sentimentError);
       sentimentData = defaultSentiment;
